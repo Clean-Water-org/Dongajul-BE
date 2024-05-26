@@ -3,11 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/application/api/api.iml" filepath="$PROJECT_DIR$/application/api/api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/application/application.iml" filepath="$PROJECT_DIR$/application/application.iml" />
       <module fileurl="file://$PROJECT_DIR$/application/batch/batch.iml" filepath="$PROJECT_DIR$/application/batch/batch.iml" />
       <module fileurl="file://$PROJECT_DIR$/domain/billing/billing.iml" filepath="$PROJECT_DIR$/domain/billing/billing.iml" />
       <module fileurl="file://$PROJECT_DIR$/clients/clients.iml" filepath="$PROJECT_DIR$/clients/clients.iml" />
-      <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/dongajul-be.iml" filepath="$PROJECT_DIR$/.idea/dongajul-be.iml" />
       <module fileurl="file://$PROJECT_DIR$/domain/mentoring/mentoring.iml" filepath="$PROJECT_DIR$/domain/mentoring/mentoring.iml" />
       <module fileurl="file://$PROJECT_DIR$/storage/storage.iml" filepath="$PROJECT_DIR$/storage/storage.iml" />
