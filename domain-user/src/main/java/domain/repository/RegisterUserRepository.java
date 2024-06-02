@@ -1,4 +1,4 @@
-package main.repository;
+package domain.repository;
 
 public interface RegisterUserRepository {
 }

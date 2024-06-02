@@ -1,6 +1,6 @@
-package main.service;
+package domain.service;
 
-import main.useCase.RegisterUserUseCase;
+import domain.useCase.RegisterUserUseCase;
 
 public class RegisterUserService implements RegisterUserUseCase {
 }
