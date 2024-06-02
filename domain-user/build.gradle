@@ -1,0 +1,9 @@
+
+dependencies {
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+}
