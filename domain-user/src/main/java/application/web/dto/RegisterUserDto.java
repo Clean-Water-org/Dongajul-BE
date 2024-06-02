@@ -1,6 +1,6 @@
 package application.web.dto;
 
-public interface RegisterUserModel {
+public interface RegisterUserDto {
     class Reponse {}
     class Request {}
 
