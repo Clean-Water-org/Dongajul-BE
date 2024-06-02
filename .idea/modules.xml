@@ -9,9 +9,14 @@
       <module fileurl="file://$PROJECT_DIR$/domain-billing/domain/domain.iml" filepath="$PROJECT_DIR$/domain-billing/domain/domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/domain-billing/domain-billing.iml" filepath="$PROJECT_DIR$/domain-billing/domain-billing.iml" />
       <module fileurl="file://$PROJECT_DIR$/domain-mentoring/domain-mentoring.iml" filepath="$PROJECT_DIR$/domain-mentoring/domain-mentoring.iml" />
-      <module fileurl="file://$PROJECT_DIR$/domain-user/domain-user.iml" filepath="$PROJECT_DIR$/domain-user/domain-user.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/dongajul-be.iml" filepath="$PROJECT_DIR$/.idea/dongajul-be.iml" />
       <module fileurl="file://$PROJECT_DIR$/domain-billing/storage/storage.iml" filepath="$PROJECT_DIR$/domain-billing/storage/storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-application.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-application.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-application.test.iml" filepath="$PROJECT_DIR$/.idea/modules/user-application.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-domain.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-domain.test.iml" filepath="$PROJECT_DIR$/.idea/modules/user-domain.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-storage.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-storage.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-storage.test.iml" filepath="$PROJECT_DIR$/.idea/modules/user-storage.test.iml" />
     </modules>
   </component>
 </project>

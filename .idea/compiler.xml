@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="user-application" target="17" />
+      <module name="user-application.main" target="17" />
+      <module name="user-application.test" target="17" />
+      <module name="user-domain" target="17" />
+      <module name="user-domain.main" target="17" />
+      <module name="user-domain.test" target="17" />
+      <module name="user-storage" target="17" />
+      <module name="user-storage.main" target="17" />
+      <module name="user-storage.test" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
