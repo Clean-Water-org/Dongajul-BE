@@ -29,8 +29,8 @@
    - `Host name/address`: 주소는 도커 컨테이너 호스트명인 `postgres`를 입력합니다.
    - `Port`: 도커 컨테이너에서 매핑한 포트 `5432`를 입력합니다.
    - `Maintenance database`: 메인 접속 디비(`postgres`)를 입력합니다.
-   - `Username`: 접속할 계정명을 입력합니다.
-   - `Password`: 접속할 계정의 비밀번호를 입력합니다.
+   - `Username`: 접속할 계정명을 입력합니다.(`postgres`)
+   - `Password`: 접속할 계정의 비밀번호를 입력합니다.(`admin`)
    
    ![](images/pgadmin-4.png)
 
