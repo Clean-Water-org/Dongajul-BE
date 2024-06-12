@@ -2,3 +2,5 @@
 /volume-data
 /.gradle
 /gradle
+.gradlew
+.gradlew.bat
