@@ -1,8 +1,6 @@
 services:
   postgres:
-    build:
-      context: postgres
-      dockerfile: Dockerfile
+    image: postgres
     container_name: postgres
     restart: unless-stopped
     volumes:
@@ -10,12 +8,12 @@ services:
     ports:
       - 5432:5432
     environment:
+      POSTGRES_USERNAME: admin
       POSTGRES_PASSWORD: admin
-      POSTGRES_MULTIPLE_DATABASES: "domain_user,domain_user,dongajul: domain_mentoring,domain_mentoring,dongajul: domain_billing,domain_billing,dongajul"
       TZ: Asia/Seoul
   pgadmin:
-    container_name: pgadmin
     image: dpage/pgadmin4
+    container_name: pgadmin
     restart: unless-stopped
     ports:
       - 5555:80
