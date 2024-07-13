@@ -8,7 +8,8 @@ pluginManagement {
 }
 
 rootProject.name = 'dongajul-be'
-//include 'domain-billing'
-//include 'domain-mentoring'
-include 'domain-user'
-include 'domain-mentoring'
+include 'dongajul-user'
+include 'dongajul-mentoring'
+include 'dongajul-billing'
+include 'dongajul-sample'
+include 'common'
