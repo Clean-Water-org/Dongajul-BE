@@ -1,6 +1,8 @@
 services:
   postgres:
-    image: postgres
+    build:
+      context: postgres
+      dockerfile: Dockerfile
     container_name: postgres
     restart: unless-stopped
     volumes:
@@ -9,18 +11,7 @@ services:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: postgres
+      POSTGRES_MULTIPLE_DATABASES: "dongajul_user,dongajul_user,dongajul: dongajul_mentoring,dongajul_mentoring,dongajul: dongajul_billing,dongajul_billing,dongajul"
       TZ: Asia/Seoul
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    container_name: pgadmin
-#    restart: unless-stopped
-#    ports:
-#      - 5555:80
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
-#      PGADMIN_DEFAULT_PASSWORD: pgadmin
-#      TZ: Asia/Seoul
-#    depends_on:
-#      - postgres
 volumes:
   postgres-data:

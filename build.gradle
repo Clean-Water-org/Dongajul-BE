@@ -29,7 +29,6 @@ subprojects { // 각 모듈에 적용할 공통 설정
 
     dependencies {
 //        implementation 'org.springframework.boot:spring-boot-starter'
-
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
     }
