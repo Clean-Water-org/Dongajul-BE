@@ -1,15 +1,14 @@
 package com.dongajul.user.adapter.out.persistence.jpa.entity;
 
 import com.dongajul.common.entity.BaseAuditing;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.springframework.data.domain.Persistable;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -26,6 +25,11 @@ public class Mentor extends BaseAuditing.CreateAndUpdate implements Persistable<
     @Column(columnDefinition = "UUID")
     @Comment("멘토 ID")
     private UUID id;
+
+    @NotNull
+    @Column(columnDefinition = "UUID")
+    @Comment("회원 ID")
+    private UUID userId;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(20)")
@@ -46,6 +50,15 @@ public class Mentor extends BaseAuditing.CreateAndUpdate implements Persistable<
     @Column(columnDefinition = "VARCHAR(200)")
     @Comment("소개서")
     private String description;
+
+    @ToString.Exclude
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private User user;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "mentor", fetch = FetchType.LAZY)
+    private Set<MentorCareer> mentorCareerSet = new LinkedHashSet<>();
 
     @Override
     public boolean isNew() {
