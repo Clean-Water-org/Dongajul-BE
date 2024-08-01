@@ -1,14 +1,13 @@
 package com.dongajul.billing.adapter.out.persistence.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -56,4 +55,8 @@ public class SettlementAccount {
     @Column(columnDefinition = "NUMERIC(2,0)") // TODO ?? 데이터 타입 재확인 필요
     @Comment("계좌번호")
     private String accountNumber;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "settlementAccount", fetch = FetchType.LAZY)
+    private Set<SettlementHistory> settlementHistorySet = new LinkedHashSet<>();
 }

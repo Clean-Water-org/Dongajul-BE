@@ -1,9 +1,6 @@
 package com.dongajul.billing.adapter.out.persistence.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -53,4 +50,9 @@ public class SettlementHistory {
     @Column(columnDefinition = "VARCHAR(20)")
     @Comment("상태")
     private String settlementStateCode;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private SettlementAccount settlementAccount;
 }
