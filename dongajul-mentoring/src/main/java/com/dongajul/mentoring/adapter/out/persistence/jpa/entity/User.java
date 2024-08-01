@@ -6,6 +6,8 @@ import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.springframework.data.domain.Persistable;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -38,6 +40,18 @@ public class User extends BaseAuditing.Create implements Persistable<UUID> {
     @Column(columnDefinition = "BOOLEAN")
     @Comment("탈퇴 여부")
     private boolean isDeleted;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<MentoringClass> mentoringClassSet = new LinkedHashSet<>();
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<MentoringReview> mentoringReviewSet = new LinkedHashSet<>();
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<MentoringOrder> mentoringOrderSet = new LinkedHashSet<>();
 
     @Override
     public boolean isNew() {

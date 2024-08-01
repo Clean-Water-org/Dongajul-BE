@@ -2,16 +2,16 @@ package com.dongajul.mentoring.adapter.out.persistence.jpa.entity;
 
 
 import com.dongajul.common.entity.BaseAuditing;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.apache.catalina.startup.UserConfig;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigInteger;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -55,4 +55,13 @@ public class MentoringClass extends BaseAuditing.CreateAndUpdate {
     @Column(columnDefinition = "BOOLEAN")
     @Comment("삭제 여부")
     private boolean isDeleted;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private User user;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "mentoringClass", fetch = FetchType.LAZY)
+    private Set<MentoringClassDate> mentoringClassDateSet = new LinkedHashSet<>();
 }

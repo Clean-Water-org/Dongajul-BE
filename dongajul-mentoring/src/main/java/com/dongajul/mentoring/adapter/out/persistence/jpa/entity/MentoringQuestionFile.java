@@ -1,10 +1,7 @@
 package com.dongajul.mentoring.adapter.out.persistence.jpa.entity;
 
 import com.dongajul.common.entity.BaseAuditing;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -46,4 +43,9 @@ public class MentoringQuestionFile extends BaseAuditing.Create {
     @Column(columnDefinition = "BIGINT")
     @Comment("파일 사이즈")
     private long fileSize;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private MentoringOrder mentoringOrder;
 }

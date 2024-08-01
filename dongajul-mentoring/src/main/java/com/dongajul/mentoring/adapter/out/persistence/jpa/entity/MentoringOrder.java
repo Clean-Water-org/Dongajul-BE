@@ -1,15 +1,14 @@
 package com.dongajul.mentoring.adapter.out.persistence.jpa.entity;
 
 import com.dongajul.common.entity.BaseAuditing;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -46,4 +45,26 @@ public class MentoringOrder extends BaseAuditing.CreateAndUpdate {
     @Column(columnDefinition = "VARCHAR(20)")
     @Comment("멘토링 진행 상태")
     private String mentoringStatusCode;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "mentoringOrder", fetch = FetchType.LAZY)
+    private Set<MentoringReview> mentoringReviewSet = new LinkedHashSet<>();
+
+    @ToString.Exclude
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private MentoringClass mentoringClass;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private User user;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "mentoringOrder", fetch = FetchType.LAZY)
+    private Set<MentoringOrderDate> mentoringOrderDateSet = new LinkedHashSet<>();
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "mentoringOrder", fetch = FetchType.LAZY)
+    private Set<MentoringQuestionFile> mentoringQuestionFileSet = new LinkedHashSet<>();
 }
