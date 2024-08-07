@@ -1,7 +1,47 @@
-bootJar.enabled = false
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'org.springframework.boot' apply(false)
+    id 'io.spring.dependency-management'
+    id 'io.spring.javaformat' apply(false)
+    id 'org.asciidoctor.jvm.convert' apply(false)
+}
 
-jar.enabled = true
+group 'group.name'
+version '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar.enabled = true
+jar.enabled = false
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+    implementation 'org.projectlombok:lombok'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    runtimeOnly 'org.postgresql:postgresql'
 }
