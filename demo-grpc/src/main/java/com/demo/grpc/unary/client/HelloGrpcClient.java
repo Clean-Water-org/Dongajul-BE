@@ -8,7 +8,7 @@ import io.grpc.ManagedChannelBuilder;
  */
 public class HelloGrpcClient {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         /**
          * 채널 생성
          */
@@ -19,6 +19,8 @@ public class HelloGrpcClient {
 
         HelloGrpcClientCaller helloGrpcClientCaller = new HelloGrpcClientCaller(channel);
         helloGrpcClientCaller.sendUnaryBlocking();
-
+        helloGrpcClientCaller.sendServerStreamingBlocking();
+        helloGrpcClientCaller.sendClientStreamingAsync();
+        helloGrpcClientCaller.sendBidirectionalStreamingAsync();
     }
 }
