@@ -1,10 +1,7 @@
 package com.dongajul.mentoring.adapter.out.persistence.jpa.entity;
 
 import com.dongajul.common.entity.BaseAuditing;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -47,4 +44,9 @@ public class MentoringOrderDate extends BaseAuditing.Create {
     @Column(columnDefinition = "BOOLEAN")
     @Comment("수락 여부")
     private boolean acceptYn;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private MentoringOrder mentoringOrder;
 }

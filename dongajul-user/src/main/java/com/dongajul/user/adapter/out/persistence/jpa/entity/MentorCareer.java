@@ -1,9 +1,6 @@
 package com.dongajul.user.adapter.out.persistence.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -51,4 +48,9 @@ public class MentorCareer {
     @Column(columnDefinition = "Date")
     @Comment("퇴사일")
     private LocalDate endWorkDate;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Mentor mentor;
 }

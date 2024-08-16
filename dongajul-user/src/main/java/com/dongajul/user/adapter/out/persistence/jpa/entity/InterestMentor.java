@@ -2,9 +2,7 @@ package com.dongajul.user.adapter.out.persistence.jpa.entity;
 
 import com.dongajul.common.entity.BaseAuditing;
 import com.dongajul.user.adapter.out.persistence.jpa.entity.id.InterestMentorId;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.springframework.data.domain.Persistable;
@@ -21,6 +19,16 @@ public class InterestMentor extends BaseAuditing.Create implements Persistable<I
 
     @EmbeddedId
     private InterestMentorId id;
+
+    @ToString.Exclude
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Mentor mentor;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Mentee mentee;
 
     @Override
     public boolean isNew() {

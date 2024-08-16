@@ -1,10 +1,7 @@
 package com.dongajul.mentoring.adapter.out.persistence.jpa.entity;
 
 import com.dongajul.common.entity.BaseAuditing;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -47,4 +44,9 @@ public class MentoringClassDate extends BaseAuditing.CreateAndUpdate {
     @Column(columnDefinition = "VARCHAR(20)")
     @Comment("요일")
     private String dayOfWeekCode;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private MentoringClass mentoringClass;
 }
