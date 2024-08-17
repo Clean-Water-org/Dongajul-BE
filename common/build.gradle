@@ -7,9 +7,8 @@ plugins {
     id 'org.asciidoctor.jvm.convert' apply(false)
 }
 
-group 'group.name'
-version '1.0-SNAPSHOT'
-sourceCompatibility = '17'
+group "${projectGroup}.common"
+version "${applicationVersion}"
 
 apply plugin: 'java'
 apply plugin: 'java-library'
