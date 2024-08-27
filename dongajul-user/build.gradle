@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'java-library'
+    id 'com.google.protobuf' version '0.9.4' // protobuf 설정을 위한 plugins 추가
     id 'org.springframework.boot' apply(false)
     id 'io.spring.dependency-management'
     id 'io.spring.javaformat' apply(false)
@@ -22,8 +23,30 @@ repositories {
     mavenCentral()
 }
 
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.1"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.64.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
 dependencies {
+    /* for gRPC */
+    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcNettyShadedVersion}"
+    implementation "io.grpc:grpc-protobuf:${grpcProtobufVersion}"
+    implementation "io.grpc:grpc-stub:${grpcProtobufVersion}"
+
     implementation project(':common')
+    implementation project(':apis')
 
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
