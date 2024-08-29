@@ -12,6 +12,7 @@ public class UserGrpcClient {
                 .usePlaintext()
                 .build();
 
-
+        UserGrpcClientCaller userGrpcClientCaller = new UserGrpcClientCaller(channel);
+        userGrpcClientCaller.sendUserRequest();
     }
 }
