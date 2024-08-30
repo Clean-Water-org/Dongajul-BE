@@ -46,7 +46,6 @@ dependencies {
     implementation "io.grpc:grpc-stub:${grpcProtobufVersion}"
 
     implementation project(':common')
-    implementation project(':apis')
 
     implementation 'javax.annotation:javax.annotation-api:1.3.2'
 
