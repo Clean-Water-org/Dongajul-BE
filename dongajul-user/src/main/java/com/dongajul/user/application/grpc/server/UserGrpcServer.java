@@ -1,5 +1,6 @@
-package com.dongajul.user.application;
+package com.dongajul.user.application.grpc.server;
 
+import com.dongajul.user.application.UserGrpcService;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import java.io.IOException;

@@ -14,5 +14,6 @@ public class UserGrpcClient {
 
         UserGrpcClientCaller userGrpcClientCaller = new UserGrpcClientCaller(channel);
         userGrpcClientCaller.sendUserRequest();
+        userGrpcClientCaller.sendUserListRequest();
     }
 }

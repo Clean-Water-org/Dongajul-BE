@@ -1,8 +1,10 @@
 package com.dongajul.user.application;
 
 import com.apis.grpc.UserGrpc;
+import com.apis.grpc.UserListRequest;
 import com.apis.grpc.UserRequest;
 import com.apis.grpc.UserResponse;
+import com.dongajul.user.adapter.out.persistence.jpa.entity.User;
 import com.dongajul.user.adapter.out.persistence.jpa.repository.UserRepository;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +45,13 @@ public class UserGrpcService extends UserGrpc.UserImplBase {
 
         responseObserver.onNext(userResponse);
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getUserList(UserListRequest request, StreamObserver<UserResponse> responseObserver) {
+        System.out.println("=== Get UserList Request");
+        System.out.println("=== List Request Data" + request);
+
+//        User user = new User();
     }
 }
