@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.apis.grpc";
+option java_outer_classname = "UserProto";
+
+message UserRequest {
+  string id = 1;        // 회원 아이디
+}
+
+message UserListRequest {
+  int32 page = 1; //페이지
+  int32 size = 2; //사이즈
+  string sortStandard = 3;  //정렬 기준
+  string sort = 4;  //정렬 방식
+}
+
+message UserResponse {
+  string userName = 1;  // 회원 이름
+  bool isAuthenticatedPhone = 2;  // 인증 여부
+  string email = 3; //이메일
+  string password = 4; //비밀번호
+  string phone = 5; //휴대폰번호
+  bool isSleeper = 6; //휴면계정 여부
+  bool isDeleted = 7; //탈퇴 여부
+}
+
+service User { //서비스: 클라이언트 -> 서버 요청 시 호출할 RPC 메소드
+rpc GetUser(UserRequest) returns(UserResponse);  //Unary RPC (단방향 RPC)
+rpc GetUserList(UserListRequest) returns(stream UserResponse);  // 서버 스트리밍 RPC
+}

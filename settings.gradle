@@ -13,3 +13,6 @@ include 'dongajul-mentoring'
 include 'dongajul-billing'
 include 'dongajul-sample'
 include 'common'
+include 'apis'
+include 'demo-spring-cloud'
+
