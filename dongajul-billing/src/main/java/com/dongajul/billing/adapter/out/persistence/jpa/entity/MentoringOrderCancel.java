@@ -27,17 +27,13 @@ public class MentoringOrderCancel extends BaseAuditing.Create {
     private UUID id;
 
     @NotNull
-    @Column(columnDefinition = "UUID")
-    @Comment("결제 ID")
-    private UUID paymentId;
-
-    @NotNull
     @Column(columnDefinition = "BIGINT")
     @Comment("취소 금액")
     private BigInteger cancelAmount;
 
     @ToString.Exclude
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @Comment("결제 ID")
+    @JoinColumn(columnDefinition = "UUID")
     private Payment payment;
 }

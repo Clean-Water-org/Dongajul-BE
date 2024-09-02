@@ -25,25 +25,14 @@ public interface BaseAuditing {
     @MappedSuperclass
     @EntityListeners(AuditingEntityListener.class)
     class CreateAndUpdate {
-        @CreatedBy
-        @NotNull
-        @Column(columnDefinition = "UUID", updatable = false)
-        @Comment("생성자")
-        private UUID createdUser;
-
         @CreatedDate
         @NotNull
-        @Column(columnDefinition = "DATE", updatable = false)
+        @Column(columnDefinition = "TIMESTAMP", updatable = false)
         @Comment("생성일")
         private LocalDateTime createdDate;
 
-        @LastModifiedBy
-        @Column(columnDefinition = "UUID")
-        @Comment("수정자")
-        private UUID updatedUser;
-
         @LastModifiedDate
-        @Column(columnDefinition = "DATE")
+        @Column(columnDefinition = "TIMESTAMP")
         @Comment("수정일")
         private LocalDateTime updatedDate;
     }
@@ -54,15 +43,9 @@ public interface BaseAuditing {
     @MappedSuperclass
     @EntityListeners(AuditingEntityListener.class)
     class Create {
-        @CreatedBy
-        @NotNull
-        @Column(columnDefinition = "UUID", updatable = false)
-        @Comment("생성자")
-        private UUID createdUser;
-
         @CreatedDate
         @NotNull
-        @Column(columnDefinition = "DATE", updatable = false)
+        @Column(columnDefinition = "TIMESTAMP", updatable = false)
         @Comment("생성일")
         private LocalDateTime createdDate;
     }

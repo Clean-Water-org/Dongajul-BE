@@ -1,4 +1,4 @@
-package com.dongajul.user.adapter.out.persistence.jpa.entity;
+package com.dongajul.mentoring.adapter.out.persistence.jpa.entity;
 
 import com.dongajul.common.entity.BaseAuditing;
 import jakarta.persistence.*;
@@ -9,9 +9,6 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
-/**
- * TODO 엔티티 질의 필요. (엔티티 불분명)
- */
 @Getter
 @Setter
 @ToString(callSuper = true)
@@ -29,16 +26,12 @@ public class InterestMentoringType extends BaseAuditing.Create {
     private UUID id;
 
     @NotNull
-    @Column(columnDefinition = "UUID")
-    @Comment("멘티 ID")
-    private UUID menteeID;
+    @Column(columnDefinition = "VARCHAR(20)")
+    private String mentoringTypeCode;
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @Comment("멘티 ID")
+    @JoinColumn(columnDefinition = "UUID")
     private Mentee mentee;
-
-    @NotNull
-    @Column(columnDefinition = "VARCHAR(20)")
-    private String mentoringTypeCode;
 }

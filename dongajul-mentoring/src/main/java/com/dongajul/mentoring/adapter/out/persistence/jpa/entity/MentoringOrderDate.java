@@ -27,17 +27,12 @@ public class MentoringOrderDate extends BaseAuditing.Create {
     private UUID id;
 
     @NotNull
-    @Column(columnDefinition = "UUID")
-    @Comment("멘토링 신청 ID")
-    private UUID mentoringOrderId;
-
-    @NotNull
-    @Column(columnDefinition = "DATE")
+    @Column(columnDefinition = "TIMESTAMP")
     @Comment("멘토링 시작 시간")
     private LocalDateTime startDate;
 
     @NotNull
-    @Column(columnDefinition = "DATE")
+    @Column(columnDefinition = "TIMESTAMP")
     @Comment("멘토링 종료 시간")
     private LocalDateTime endDate;
 
@@ -47,6 +42,7 @@ public class MentoringOrderDate extends BaseAuditing.Create {
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(columnDefinition = "UUID")
+    @Comment("멘토링 신청 ID")
     private MentoringOrder mentoringOrder;
 }

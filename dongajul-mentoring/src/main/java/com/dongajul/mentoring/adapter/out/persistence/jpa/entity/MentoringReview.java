@@ -27,19 +27,15 @@ public class MentoringReview extends BaseAuditing.CreateAndUpdate {
     @Comment("리뷰 ID")
     private UUID id;
 
-    @Column(columnDefinition = "UUID")
+    @Column(name = "parent_id", columnDefinition = "UUID")
     @Comment("부모 리뷰 ID")
     private UUID parentId;
 
-    @NotNull
-    @Column(columnDefinition = "UUID")
-    @Comment("멘토링 신청 ID")
-    private UUID orderId;
-
+    // TODO 설계 수정 필요
     @NotNull
     @Column(columnDefinition = "UUID")
     @Comment("작성자 ID")
-    private UUID userId;
+    private UUID menteeId;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(200)")
@@ -47,7 +43,7 @@ public class MentoringReview extends BaseAuditing.CreateAndUpdate {
     private String content;
 
     @NotNull
-    @Column(columnDefinition = "SMALLINT") // TODO NUMERIC(2, 1)은 어떠한가..
+    @Column(columnDefinition = "NUMERIC(1, 0)")
     @Comment("평점")
     private int rating;
 
@@ -56,21 +52,17 @@ public class MentoringReview extends BaseAuditing.CreateAndUpdate {
     private boolean isDeleted;
 
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private User user;
-
-    @ToString.Exclude
     @OneToMany(mappedBy = "mentoringReview", fetch = FetchType.LAZY)
     private Set<MentoringReview> mentoringReviewSet = new LinkedHashSet<>();
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name = "parent_id", updatable = false, insertable = false)
     private MentoringReview mentoringReview;
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(columnDefinition = "UUID")
+    @Comment("멘토링 신청 ID")
     private MentoringOrder mentoringOrder;
 }

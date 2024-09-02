@@ -5,7 +5,6 @@ import com.dongajul.common.entity.BaseAuditing;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.apache.catalina.startup.UserConfig;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -30,11 +29,6 @@ public class MentoringClass extends BaseAuditing.CreateAndUpdate {
     @Comment("클래스 ID")
     private UUID id;
 
-    @NotNull
-    @Column(columnDefinition = "UUID")
-    @Comment("멘토 ID")
-    private UUID mentorId;
-
     @Column(columnDefinition = "VARCHAR(20)")
     @Comment("멘토링 분야")
     private String mentoringTypeCode;
@@ -58,10 +52,15 @@ public class MentoringClass extends BaseAuditing.CreateAndUpdate {
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private User user;
+    @JoinColumn(columnDefinition = "UUID")
+    @Comment("멘토 ID")
+    private Mentor mentor;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "mentoringClass", fetch = FetchType.LAZY)
     private Set<MentoringClassDate> mentoringClassDateSet = new LinkedHashSet<>();
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "mentoringClass", fetch = FetchType.LAZY)
+    private Set<MentoringOrder> mentoringOrderSet = new LinkedHashSet<>();
 }

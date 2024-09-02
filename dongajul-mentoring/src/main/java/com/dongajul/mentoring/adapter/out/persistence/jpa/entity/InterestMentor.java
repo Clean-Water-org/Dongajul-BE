@@ -1,7 +1,7 @@
-package com.dongajul.user.adapter.out.persistence.jpa.entity;
+package com.dongajul.mentoring.adapter.out.persistence.jpa.entity;
 
 import com.dongajul.common.entity.BaseAuditing;
-import com.dongajul.user.adapter.out.persistence.jpa.entity.id.InterestMentorId;
+import com.dongajul.mentoring.adapter.out.persistence.jpa.entity.id.InterestMentorId;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -21,13 +21,13 @@ public class InterestMentor extends BaseAuditing.Create implements Persistable<I
     private InterestMentorId id;
 
     @ToString.Exclude
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(insertable=false, updatable=false)
     private Mentor mentor;
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(insertable=false, updatable=false)
     private Mentee mentee;
 
     @Override

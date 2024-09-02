@@ -1,9 +1,8 @@
-package com.dongajul.user.adapter.out.persistence.jpa.entity;
+package com.dongajul.mentoring.adapter.out.persistence.jpa.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -27,11 +26,6 @@ public class MentorCareer {
     private UUID id;
 
     @NotNull
-    @Column(columnDefinition = "UUID")
-    @Comment("멘토 ID")
-    private UUID mentorId;
-
-    @NotNull
     @Column(columnDefinition = "VARCHAR(100)")
     @Comment("인증 기업명")
     private String companyName;
@@ -41,16 +35,17 @@ public class MentorCareer {
     private boolean isRepresentation;
 
     @NotNull
-    @Column(columnDefinition = "Date")
+    @Column(columnDefinition = "DATE")
     @Comment("입사일")
     private LocalDate startWorkDate;
 
-    @Column(columnDefinition = "Date")
+    @Column(columnDefinition = "DATE")
     @Comment("퇴사일")
     private LocalDate endWorkDate;
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(columnDefinition = "UUID")
+    @Comment("멘토 ID")
     private Mentor mentor;
 }

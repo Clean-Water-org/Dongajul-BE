@@ -23,12 +23,7 @@ public class MentoringQuestionFile extends BaseAuditing.Create {
     @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(columnDefinition = "UUID")
     @Comment("파일 ID")
-    private UUID fileId;
-
-    @NotNull
-    @Column(columnDefinition = "UUID")
-    @Comment("멘토링 신청 ID")
-    private UUID mentoringOrderId;
+    private UUID id;
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(200)")
@@ -40,12 +35,13 @@ public class MentoringQuestionFile extends BaseAuditing.Create {
     @Comment("파일명")
     private String fileName;
 
-    @Column(columnDefinition = "BIGINT")
+    @Column(columnDefinition = "INTEGER")
     @Comment("파일 사이즈")
     private long fileSize;
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(columnDefinition = "UUID")
+    @Comment("멘토링 신청 ID")
     private MentoringOrder mentoringOrder;
 }

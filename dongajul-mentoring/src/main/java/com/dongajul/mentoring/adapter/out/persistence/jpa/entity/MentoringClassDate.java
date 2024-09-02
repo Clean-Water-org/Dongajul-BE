@@ -26,17 +26,12 @@ public class MentoringClassDate extends BaseAuditing.CreateAndUpdate {
     private UUID id;
 
     @NotNull
-    @Column(columnDefinition = "UUID")
-    @Comment("클래스 ID")
-    private UUID classId;
-
-    @NotNull
-    @Column(columnDefinition = "VARCHAR(5)")
+    @Column(columnDefinition = "TIME")
     @Comment("시작 시간")
     private String startTime;;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(5)")
+    @Column(columnDefinition = "TIME")
     @Comment("종료 시간")
     private String endTime;
 
@@ -47,6 +42,7 @@ public class MentoringClassDate extends BaseAuditing.CreateAndUpdate {
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(columnDefinition = "UUID")
+    @Comment("멘토링 클래스 ID")
     private MentoringClass mentoringClass;
 }

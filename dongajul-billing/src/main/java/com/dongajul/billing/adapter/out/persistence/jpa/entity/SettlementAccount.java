@@ -42,17 +42,17 @@ public class SettlementAccount {
     private String settlerName;
 
     @NotNull
-    @Column(columnDefinition = "NUMERIC(2,0)") // TODO ?? 데이터 타입 재확인 필요
-    @Comment("주민등록번호") // TODO ?? 주민등록번호 아닌 것 같은데?
+    @Column(columnDefinition = "CHAR(13)")
+    @Comment("주민등록번호")
     private String identificationName;
 
     @NotNull
-    @Column(columnDefinition = "VARCHAR(255)") // TODO ?? 데이터 타입 재확인 필요
+    @Column(columnDefinition = "VARCHAR(255)")
     @Comment("은행")
     private String bankCode;
 
     @NotNull
-    @Column(columnDefinition = "NUMERIC(2,0)") // TODO ?? 데이터 타입 재확인 필요
+    @Column(columnDefinition = "NUMERIC(20,0)")
     @Comment("계좌번호")
     private String accountNumber;
 

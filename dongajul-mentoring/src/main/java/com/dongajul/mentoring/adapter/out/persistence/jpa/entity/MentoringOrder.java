@@ -27,16 +27,6 @@ public class MentoringOrder extends BaseAuditing.CreateAndUpdate {
     @Comment("신청 ID")
     private UUID id;
 
-    @NotNull
-    @Column(columnDefinition = "UUID")
-    @Comment("멘티 ID")
-    private UUID menteeId;
-
-    @NotNull
-    @Column(columnDefinition = "UUID")
-    @Comment("클래스 ID")
-    private UUID classId;
-
     @Column(columnDefinition = "VARCHAR(200)")
     @Comment("사전 질문")
     private String question;
@@ -47,18 +37,20 @@ public class MentoringOrder extends BaseAuditing.CreateAndUpdate {
     private String mentoringStatusCode;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "mentoringOrder", fetch = FetchType.LAZY)
-    private Set<MentoringReview> mentoringReviewSet = new LinkedHashSet<>();
-
-    @ToString.Exclude
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private MentoringClass mentoringClass;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(columnDefinition = "UUID")
+    @Comment("멘티 ID")
+    private Mentee mentee;
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private User user;
+    @JoinColumn(columnDefinition = "UUID")
+    @Comment("멘토링 클래스 ID")
+    private MentoringClass mentoringClass;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "mentoringOrder", fetch = FetchType.LAZY)
+    private Set<MentoringReview> mentoringReviewSet = new LinkedHashSet<>();
 
     @ToString.Exclude
     @OneToMany(mappedBy = "mentoringOrder", fetch = FetchType.LAZY)

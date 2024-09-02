@@ -17,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table
-@Comment("")
+@Comment("정산 내역")
 public class SettlementHistory {
 
     @Id
@@ -28,16 +28,11 @@ public class SettlementHistory {
 
     @NotNull
     @Column(columnDefinition = "UUID")
-    @Comment("정산 계좌 ID")
-    private UUID accountId;
-
-    @NotNull
-    @Column(columnDefinition = "UUID")
     @Comment("멘토링 신청 ID")
     private UUID mentoringOrderId;
 
     @NotNull
-    @Column(columnDefinition = "DATE")
+    @Column(columnDefinition = "TIMESTAMP")
     @Comment("결제 날짜")
     private LocalDateTime paymentDate;
 
@@ -54,5 +49,6 @@ public class SettlementHistory {
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
+    @Comment("정산 계좌 ID")
     private SettlementAccount settlementAccount;
 }

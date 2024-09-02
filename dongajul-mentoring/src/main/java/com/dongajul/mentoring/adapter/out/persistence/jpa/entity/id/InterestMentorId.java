@@ -1,4 +1,4 @@
-package com.dongajul.user.adapter.out.persistence.jpa.entity.id;
+package com.dongajul.mentoring.adapter.out.persistence.jpa.entity.id;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -18,12 +18,12 @@ import java.util.UUID;
 public class InterestMentorId implements Serializable {
 
     @NotNull
-    @Column(columnDefinition = "UUID")
+    @Column(name = "mentor_id", columnDefinition = "UUID")
     @Comment("멘토 ID")
     private UUID mentorId;
 
     @NotNull
-    @Column(columnDefinition = "UUID")
+    @Column(name = "mentee_id", columnDefinition = "UUID")
     @Comment("멘티 ID")
     private UUID menteeId;
 }
