@@ -14,6 +14,6 @@ public class UserGrpcServer {
                                          .build();
 
         grpcServer.start();
-        grpcServer.awaitTermination();
+        grpcServer.awaitTermination();  //shutdown 실행 후, 지정한 시간동안 모든 작업이 종료될 때까지 대기
     }
 }

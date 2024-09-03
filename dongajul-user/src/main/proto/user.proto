@@ -4,11 +4,11 @@ option java_multiple_files = true;
 option java_package = "com.apis.grpc";
 option java_outer_classname = "UserProto";
 
-message UserRequest {
+message UserRequest { //단건 요청
   string id = 1;        // 회원 아이디
 }
 
-message UserListRequest {
+message UserListRequest { //다건 요청
   int32 page = 1; //페이지
   int32 size = 2; //사이즈
   string sortStandard = 3;  //정렬 기준

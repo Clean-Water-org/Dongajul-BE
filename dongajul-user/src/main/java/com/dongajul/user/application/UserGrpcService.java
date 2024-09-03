@@ -51,6 +51,7 @@ public class UserGrpcService extends UserGrpc.UserImplBase {
         responseObserver.onCompleted();
     }
 
+    //StreamObserver 인터페이스: 클라이언트로부터 데이터를 수신하고, 응답을 반환
     @Override
     public void getUserList(UserListRequest request, StreamObserver<UserResponse> responseObserver) {
         System.out.println("=== Get UserList Request");
