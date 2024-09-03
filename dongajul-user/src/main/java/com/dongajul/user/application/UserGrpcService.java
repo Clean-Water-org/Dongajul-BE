@@ -10,6 +10,10 @@ import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserGrpcService extends UserGrpc.UserImplBase {
@@ -52,6 +56,33 @@ public class UserGrpcService extends UserGrpc.UserImplBase {
         System.out.println("=== Get UserList Request");
         System.out.println("=== List Request Data" + request);
 
-//        User user = new User();
+        List<User> userList = new ArrayList<>();
+
+        for (int i=0; i<3; i++) {
+            userList.add(new User(UUID.randomUUID(),
+                    "이름" + i,
+                    true,
+                    "grace"+i+"@gmail.com",
+                    "pw1234",
+                    "0101234123"+i,
+                    false,
+                    false));
+        }
+
+        //응답 데이터 세팅
+        for(User user : userList) {
+            UserResponse userResponse = UserResponse.newBuilder()
+                    .setUserName(user.getUserName())
+                    .setIsAuthenticatedPhone(user.isAuthenticatedPhone())
+                    .setEmail(user.getEmail())
+                    .setPassword(user.getPassword())
+                    .setPhone(user.getPhone())
+                    .setIsSleeper(user.isSleeper())
+                    .setIsDeleted(user.isDeleted())
+                    .build();
+
+            responseObserver.onNext(userResponse);
+        }
+        responseObserver.onCompleted();
     }
 }
