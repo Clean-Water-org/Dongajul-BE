@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'java-library'
+    id 'com.google.protobuf' version '0.9.4' // protobuf 설정을 위한 plugins 추가
     id 'org.springframework.boot' apply(false)
     id 'io.spring.dependency-management'
     id 'io.spring.javaformat' apply(false)
@@ -22,13 +23,46 @@ repositories {
     mavenCentral()
 }
 
+//sourceSets {
+//    main {
+//        resources {
+//            srcDirs = ['src/main/resources', 'src/main/others']
+//        }
+//        proto {
+//            srcDir 'src/main/others'
+//        }
+//    }
+//}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.1"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.64.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
 dependencies {
+    implementation project(':grpc-proto')
     implementation project(':common')
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    /* for gRPC */
+    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcNettyShadedVersion}"
+    implementation "io.grpc:grpc-protobuf:${grpcProtobufVersion}"
+    implementation "io.grpc:grpc-stub:${grpcProtobufVersion}"
 
     implementation 'org.projectlombok:lombok'
 

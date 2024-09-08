@@ -15,6 +15,6 @@ include 'dongajul-sample'
 include 'common'
 include 'apis'
 include 'demo-spring-cloud'
-
-include 'demo-grpc'
+//include 'demo-grpc'
+include 'grpc-proto'
 
