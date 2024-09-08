@@ -1,4 +1,20 @@
 plugins {
+    id 'java-library'
+    id 'io.spring.dependency-management'
+}
+
+java {
+    sourceCompatibility = javaVersion
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 ext {
