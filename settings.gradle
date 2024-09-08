@@ -1,11 +1,11 @@
-pluginManagement {
-    plugins {
-        id 'org.springframework.boot' version "${springBootVersion}"
-        id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
-        id 'org.asciidoctor.jvm.convert' version "${asciidoctorConvertVersion}"
-        id 'io.spring.javaformat' version "${springJavaFormatVersion}"
-    }
-}
+//pluginManagement {
+//    plugins {
+//        id 'org.springframework.boot' version "${springBootVersion}"
+//        id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+//        id 'org.asciidoctor.jvm.convert' version "${asciidoctorConvertVersion}"
+//        id 'io.spring.javaformat' version "${springJavaFormatVersion}"
+//    }
+//}
 
 rootProject.name = 'dongajul-be'
 include 'dongajul-user'
@@ -15,6 +15,6 @@ include 'dongajul-sample'
 include 'common'
 include 'apis'
 include 'demo-spring-cloud'
-//include 'demo-grpc'
+//include 'demo-grpc' // dfd
 include 'grpc-proto'
 
