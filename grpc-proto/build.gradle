@@ -1,0 +1,11 @@
+plugins {
+    id 'grpc'
+}
+
+group = "${projectGroup}.my-proto"
+version "${applicationVersion}"
+
+jar.enabled = true;
+
+dependencies {
+}

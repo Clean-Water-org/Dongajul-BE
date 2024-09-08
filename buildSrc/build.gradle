@@ -1,0 +1,28 @@
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+apply {
+}
+
+repositories {
+    gradlePluginPortal()
+}
+
+ext {
+    springBoot = '3.3.3'
+    springDependencyManagement = '1.1.6'
+    queryDsl = '1.0.10'
+    asciidoctor = '4.0.3'
+    springJavaFormat = '0.0.27'
+    protobuf = '0.9.4'
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-gradle-plugin:$springBoot"
+    implementation "io.spring.gradle:dependency-management-plugin:$springDependencyManagement"
+    implementation "com.ewerk.gradle.plugins.querydsl:com.ewerk.gradle.plugins.querydsl.gradle.plugin:$queryDsl"
+    implementation "org.asciidoctor:asciidoctor-gradle-jvm:$asciidoctor"
+    implementation "io.spring.javaformat:spring-javaformat-gradle-plugin:$springJavaFormat"
+    implementation "com.google.protobuf:protobuf-gradle-plugin:$protobuf"
+}

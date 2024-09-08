@@ -1,0 +1,80 @@
+plugins {
+    id 'java-library'
+    id 'com.google.protobuf' // protobuf 설정을 위한 plugins 추가
+}
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir 'proto/java'
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.3"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.64.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {
+                outputSubDir = 'grpc'
+            }
+        }
+    }
+}
+
+tasks.register('replaceJavaxWithJakarta') {
+    description = 'Replace javax with jakarta in generated sources'
+    doLast {
+        def dir = file('build/generated/source/proto/main/grpc') as File // gRPC 소스가 생성된 디렉토리
+        if (dir.exists()) {
+            dir.eachFileRecurse { file ->
+                if (file.name.endsWith('.java')) {
+                    // javax를 jakarta로 치환
+                    def text = file.text.replaceAll('javax', 'jakarta')
+                    file.text = text
+                }
+            }
+        }
+    }
+}
+
+// Protobuf 파일 생성 후 javax -> jakarta 교체 작업을 수행하도록 설정
+tasks.named('generateProto').configure {
+    finalizedBy replaceJavaxWithJakarta
+}
+
+ext {
+    grpcNettyShadedVersion = '1.64.0'
+    grpcProtobufVersion = '1.64.0'
+    grpcStubVersion = '1.64.0'
+}
+
+dependencies {
+    implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0' // jarkarta api
+
+    /* for gRPC */
+    runtimeOnly "io.grpc:grpc-netty-shaded:$grpcNettyShadedVersion"
+    implementation "io.grpc:grpc-protobuf:$grpcProtobufVersion"
+    implementation "io.grpc:grpc-stub:$grpcProtobufVersion"
+}
