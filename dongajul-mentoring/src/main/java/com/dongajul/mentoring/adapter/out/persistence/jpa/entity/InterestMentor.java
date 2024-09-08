@@ -21,13 +21,17 @@ public class InterestMentor extends BaseAuditing.Create implements Persistable<I
     private InterestMentorId id;
 
     @ToString.Exclude
+    @MapsId("mentorId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(insertable=false, updatable=false)
+    @JoinColumn
+    @Comment("멘토 아이디")
     private Mentor mentor;
 
     @ToString.Exclude
+    @MapsId("menteeId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(insertable=false, updatable=false)
+    @JoinColumn
+    @Comment("멘티 아이디")
     private Mentee mentee;
 
     @Override

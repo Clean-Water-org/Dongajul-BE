@@ -18,14 +18,12 @@ import java.util.UUID;
 public class InterestMentorId implements Serializable {
 
     @NotNull
-    @Column(name = "mentor_id",
-            columnDefinition = "UUID")
+    @Column(columnDefinition = "UUID")
     @Comment("멘토 ID")
     private UUID mentorId;
 
     @NotNull
-    @Column(name = "mentee_id",
-            columnDefinition = "UUID")
+    @Column(columnDefinition = "UUID")
     @Comment("멘티 ID")
     private UUID menteeId;
 }
