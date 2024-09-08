@@ -16,3 +16,5 @@ include 'common'
 include 'apis'
 include 'demo-spring-cloud'
 
+include 'demo-grpc'
+
