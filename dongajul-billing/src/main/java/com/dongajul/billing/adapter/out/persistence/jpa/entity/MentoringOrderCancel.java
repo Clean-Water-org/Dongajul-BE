@@ -34,6 +34,6 @@ public class MentoringOrderCancel extends BaseAuditing.Create {
     @ToString.Exclude
     @OneToOne(fetch = FetchType.LAZY)
     @Comment("결제 ID")
-    @JoinColumn(columnDefinition = "UUID")
+    @JoinColumn
     private Payment payment;
 }

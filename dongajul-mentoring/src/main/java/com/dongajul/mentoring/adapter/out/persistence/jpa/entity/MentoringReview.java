@@ -27,11 +27,6 @@ public class MentoringReview extends BaseAuditing.CreateAndUpdate {
     @Comment("리뷰 ID")
     private UUID id;
 
-    @Column(name = "parent_id", columnDefinition = "UUID")
-    @Comment("부모 리뷰 ID")
-    private UUID parentId;
-
-    // TODO 설계 수정 필요
     @NotNull
     @Column(columnDefinition = "UUID")
     @Comment("작성자 ID")
@@ -52,17 +47,18 @@ public class MentoringReview extends BaseAuditing.CreateAndUpdate {
     private boolean isDeleted;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "mentoringReview", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private Set<MentoringReview> mentoringReviewSet = new LinkedHashSet<>();
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id", updatable = false, insertable = false)
-    private MentoringReview mentoringReview;
+    @JoinColumn
+    @Comment("부모 리뷰 ID")
+    private MentoringReview parent;
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(columnDefinition = "UUID")
+    @JoinColumn
     @Comment("멘토링 신청 ID")
     private MentoringOrder mentoringOrder;
 }

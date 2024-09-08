@@ -38,13 +38,13 @@ public class MentoringOrder extends BaseAuditing.CreateAndUpdate {
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(columnDefinition = "UUID")
+    @JoinColumn
     @Comment("멘티 ID")
     private Mentee mentee;
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(columnDefinition = "UUID")
+    @JoinColumn
     @Comment("멘토링 클래스 ID")
     private MentoringClass mentoringClass;
 

@@ -32,6 +32,6 @@ public class InterestMentoringType extends BaseAuditing.Create {
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @Comment("멘티 ID")
-    @JoinColumn(columnDefinition = "UUID")
+    @JoinColumn
     private Mentee mentee;
 }

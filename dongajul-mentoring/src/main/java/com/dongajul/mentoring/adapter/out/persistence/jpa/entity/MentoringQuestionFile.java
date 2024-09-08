@@ -41,7 +41,7 @@ public class MentoringQuestionFile extends BaseAuditing.Create {
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(columnDefinition = "UUID")
+    @JoinColumn
     @Comment("멘토링 신청 ID")
     private MentoringOrder mentoringOrder;
 }

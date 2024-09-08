@@ -45,7 +45,7 @@ public class MentorCareer {
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(columnDefinition = "UUID")
+    @JoinColumn
     @Comment("멘토 ID")
     private Mentor mentor;
 }

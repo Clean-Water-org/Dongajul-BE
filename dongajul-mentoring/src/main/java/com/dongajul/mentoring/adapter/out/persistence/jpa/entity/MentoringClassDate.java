@@ -42,7 +42,7 @@ public class MentoringClassDate extends BaseAuditing.CreateAndUpdate {
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(columnDefinition = "UUID")
+    @JoinColumn
     @Comment("멘토링 클래스 ID")
     private MentoringClass mentoringClass;
 }

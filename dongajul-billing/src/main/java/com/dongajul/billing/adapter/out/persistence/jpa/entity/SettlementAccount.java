@@ -52,7 +52,7 @@ public class SettlementAccount {
     private String bankCode;
 
     @NotNull
-    @Column(columnDefinition = "NUMERIC(20,0)")
+    @Column(columnDefinition = "VARCHAR(20)")
     @Comment("계좌번호")
     private String accountNumber;
 
