@@ -1,20 +1,10 @@
-//pluginManagement {
-//    plugins {
-//        id 'org.springframework.boot' version "${springBootVersion}"
-//        id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
-//        id 'org.asciidoctor.jvm.convert' version "${asciidoctorConvertVersion}"
-//        id 'io.spring.javaformat' version "${springJavaFormatVersion}"
-//    }
-//}
-
 rootProject.name = 'dongajul-be'
-include 'dongajul-user'
-include 'dongajul-mentoring'
-include 'dongajul-billing'
-include 'dongajul-sample'
-include 'common'
-include 'apis'
-include 'demo-spring-cloud'
-//include 'demo-grpc' // dfd
-include 'grpc-proto'
 
+file("${rootDir}").eachDir {
+    if (it.directory
+            && new File(it.absolutePath, "build.gradle").exists()
+            && it.name != 'buildSrc'
+    ) {
+        include(it.name)
+    }
+}

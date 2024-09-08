@@ -43,15 +43,6 @@ protobuf {
     }
 }
 
-dependencies {
-    implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0' // jarkarta api
-
-    /* for gRPC */
-    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcNettyShadedVersion}"
-    implementation "io.grpc:grpc-protobuf:${grpcProtobufVersion}"
-    implementation "io.grpc:grpc-stub:${grpcProtobufVersion}"
-}
-
 tasks.register('replaceJavaxWithJakarta') {
     description = 'Replace javax with jakarta in generated sources'
     doLast {
@@ -71,4 +62,19 @@ tasks.register('replaceJavaxWithJakarta') {
 // Protobuf 파일 생성 후 javax -> jakarta 교체 작업을 수행하도록 설정
 tasks.named('generateProto').configure {
     finalizedBy replaceJavaxWithJakarta
+}
+
+ext {
+    grpcNettyShadedVersion = '1.64.0'
+    grpcProtobufVersion = '1.64.0'
+    grpcStubVersion = '1.64.0'
+}
+
+dependencies {
+    implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0' // jarkarta api
+
+    /* for gRPC */
+    runtimeOnly "io.grpc:grpc-netty-shaded:$grpcNettyShadedVersion"
+    implementation "io.grpc:grpc-protobuf:$grpcProtobufVersion"
+    implementation "io.grpc:grpc-stub:$grpcProtobufVersion"
 }
