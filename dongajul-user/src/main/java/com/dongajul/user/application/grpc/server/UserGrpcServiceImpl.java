@@ -1,11 +1,10 @@
-package com.dongajul.user.application;
+package com.dongajul.user.application.grpc.server;
 
 import com.apis.grpc.UserGrpc;
 import com.apis.grpc.UserListRequest;
 import com.apis.grpc.UserRequest;
 import com.apis.grpc.UserResponse;
-import com.dongajul.user.adapter.out.persistence.jpa.entity.User;
-import com.dongajul.user.adapter.out.persistence.jpa.repository.UserRepository;
+import com.dongajul.user.adapter.out.persistence.jpa.entity.UserEntity;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UserGrpcService extends UserGrpc.UserImplBase {
+public class UserGrpcServiceImpl extends UserGrpc.UserImplBase {
 //    private final UserRepository userRepository;
     
     @Override
@@ -57,29 +56,29 @@ public class UserGrpcService extends UserGrpc.UserImplBase {
         System.out.println("=== Get UserList Request");
         System.out.println("=== List Request Data" + request);
 
-        List<User> userList = new ArrayList<>();
+        List<UserEntity> userEntityList = new ArrayList<>();
 
         for (int i=0; i<3; i++) {
-            userList.add(new User(UUID.randomUUID(),
-                    "이름" + i,
-                    true,
-                    "grace"+i+"@gmail.com",
-                    "pw1234",
-                    "0101234123"+i,
-                    false,
-                    false));
+            userEntityList.add(new UserEntity(UUID.randomUUID(),
+                                              "이름" + i,
+                                              true,
+                                              "grace"+i+"@gmail.com",
+                                              "pw1234",
+                                              "0101234123"+i,
+                                              false,
+                                              false));
         }
 
         //응답 데이터 세팅
-        for(User user : userList) {
+        for(UserEntity userEntity : userEntityList) {
             UserResponse userResponse = UserResponse.newBuilder()
-                    .setUserName(user.getUserName())
-                    .setIsAuthenticatedPhone(user.isAuthenticatedPhone())
-                    .setEmail(user.getEmail())
-                    .setPassword(user.getPassword())
-                    .setPhone(user.getPhone())
-                    .setIsSleeper(user.isSleeper())
-                    .setIsDeleted(user.isDeleted())
+                    .setUserName(userEntity.getUserName())
+                    .setIsAuthenticatedPhone(userEntity.isAuthenticatedPhone())
+                    .setEmail(userEntity.getEmail())
+                    .setPassword(userEntity.getPassword())
+                    .setPhone(userEntity.getPhone())
+                    .setIsSleeper(userEntity.isSleeper())
+                    .setIsDeleted(userEntity.isDeleted())
                     .build();
 
             responseObserver.onNext(userResponse);

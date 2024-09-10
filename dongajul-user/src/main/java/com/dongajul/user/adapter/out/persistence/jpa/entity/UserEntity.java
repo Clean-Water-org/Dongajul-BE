@@ -20,7 +20,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "account")
 @Comment("회원")
-public class User extends BaseAuditing.CreateAndUpdate {
+public class UserEntity extends BaseAuditing.CreateAndUpdate {
 
     @Id
 //    @Tsid // TSID (Time-Sorted Unique Identifier), 이거 사용하면 Bigint 타입임
@@ -28,6 +28,8 @@ public class User extends BaseAuditing.CreateAndUpdate {
     @Column(columnDefinition = "UUID")
     @Comment("회원 ID")
     private UUID id;
+
+    // TODO 화면에 회원가입 시 닉네임 입력 받음, 근데 엔티티에는 없음
 
     @NotNull
     @Column(columnDefinition = "VARCHAR(16)")
