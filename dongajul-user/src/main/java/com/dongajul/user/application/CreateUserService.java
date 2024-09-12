@@ -17,14 +17,22 @@ public class CreateUserService implements CreateUserUseCase {
 
     @Override
     public boolean createUser(CreateUserCommand command) {
+        // 1. 비즈니스 규칙 검증
+        // 2. 모델 상태 조작
+
+        if(!command.isAuthenticatedPhone()){    //휴대전화 인증 필수
+            return false;
+        }
+
         User user = User.builder()
                          .email(command.email())
                          .userName(command.userName())
                          .password(command.password())  //TODO 비밀번호 암호화 필요
                          .phone(command.phone())
+                         .isAuthenticatedPhone(true)
                          .build();
 
-        User createdUser = createUserPort.createUser(user);
+        createUserPort.createUser(user);
 
         return true;
     }

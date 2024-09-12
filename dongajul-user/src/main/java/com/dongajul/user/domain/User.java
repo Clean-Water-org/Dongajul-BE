@@ -7,9 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Value;
 
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
 
     private final UserId id;

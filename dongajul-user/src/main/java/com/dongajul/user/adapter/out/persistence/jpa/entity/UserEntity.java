@@ -40,6 +40,7 @@ public class UserEntity extends BaseAuditing.CreateAndUpdate {
     @Comment("인증 여부")
     private boolean isAuthenticatedPhone;
 
+    //TODO 유니크 설정 필요 없는지
     @NotNull
     @Column(columnDefinition = "VARCHAR(200)")
     @Comment("이메일(로그인 ID)")
