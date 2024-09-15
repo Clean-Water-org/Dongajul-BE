@@ -1,5 +1,8 @@
 plugins {
     id 'spring'
+    // id 'spring-persistence'
+    id 'spring-cloud'
+    id 'spring-cloud.discovery-client'
 }
 
 group 'group.name'
@@ -9,5 +12,5 @@ bootJar.enabled = true
 jar.enabled = false
 
 dependencies {
-    implementation project(':common')
+  //  implementation project(':common')
 }

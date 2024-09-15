@@ -1,8 +1,6 @@
 plugins {
     id 'spring'
     id 'spring-persistence'
-    id 'spring-cloud'
-    id 'spring-cloud.discovery-client'
     id 'grpc'
 }
 
