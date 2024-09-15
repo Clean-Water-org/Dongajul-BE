@@ -1,0 +1,15 @@
+plugins {
+    id 'spring'
+    id 'spring-cloud'
+    id 'spring-cloud.discovery-server'
+}
+
+group = "${projectGroup}.discovery"
+version "${applicationVersion}"
+
+
+
+dependencies {
+
+}
+

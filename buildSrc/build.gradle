@@ -10,7 +10,7 @@ repositories {
 }
 
 ext {
-    springBoot = '3.3.3'
+    springBoot = '3.2.9'
     springDependencyManagement = '1.1.6'
     queryDsl = '1.0.10'
     asciidoctor = '4.0.3'

@@ -1,5 +1,8 @@
 plugins {
     id 'spring'
+    id 'spring-persistence'
+    id 'spring-cloud'
+    id 'spring-cloud.discovery-client'
     id 'grpc'
 }
 
@@ -13,3 +16,4 @@ dependencies {
     implementation project(':common')
     implementation project(':grpc-proto')
 }
+
