@@ -7,6 +7,7 @@ spring:
     cloud:
       compatibility-verifier: # 호환성 검사 끄기 삭제 필요
         enabled: true
+
 eureka:
   client:
     register-with-eureka: false # 유레카 서비스에 (자신을) 등록 여부
