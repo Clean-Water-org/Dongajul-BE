@@ -1,0 +1,28 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: "gateway-service"
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+        - id: sample-service # 라우팅을 구분하기 위한 route id
+          uri: lb://sample-service #요청이 라우팅되는 경로 URI 프로토콜(lb://)의 경로를 지정하면 기본적으로 Eureka Server에서 호스트에 해당하는 서비스를 찾고 로드밸런싱을 수행합니다.
+          predicates: #해당 라우팅을 진행할 URI 조건으로, Gateway로 들어오는 요청 URI를 지정
+            - Path=/api/sample/**
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

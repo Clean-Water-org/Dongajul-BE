@@ -1,0 +1,14 @@
+plugins {
+    id 'spring'
+    id 'spring-cloud'
+    id 'spring-cloud.discovery-client'
+    id 'spring-cloud.gateway'
+}
+
+group = "${projectGroup}.gateway"
+version "${applicationVersion}"
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter"
+}
+

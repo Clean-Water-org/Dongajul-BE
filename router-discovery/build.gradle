@@ -7,8 +7,6 @@ plugins {
 group = "${projectGroup}.discovery"
 version "${applicationVersion}"
 
-
-
 dependencies {
 
 }

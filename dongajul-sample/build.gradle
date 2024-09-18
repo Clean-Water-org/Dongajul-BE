@@ -3,6 +3,7 @@ plugins {
     // id 'spring-persistence'
     id 'spring-cloud'
     id 'spring-cloud.discovery-client'
+
 }
 
 group 'group.name'
