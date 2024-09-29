@@ -14,6 +14,9 @@ public class Argon2Encryptor implements Encryptor{
     private final int PARALLELISM = 1; // 병렬성 수
 
     @Override
+    public int getSaltLength() { return 16; }
+
+    @Override
     public String encrypt(String plainText, byte[] salt) {
 
         Argon2Parameters.Builder builder = getArgon2ParametersBuilder(salt);
@@ -52,7 +55,7 @@ public class Argon2Encryptor implements Encryptor{
         Argon2Encryptor argon2Encryptor = new Argon2Encryptor();
         String plainText = "Baeldung";
 
-        String saltStr = argon2Encryptor.encodeBase64(argon2Encryptor.generateSalt16Byte());
+        String saltStr = argon2Encryptor.encodeBase64(argon2Encryptor.generateSaltByte());
         // save saltStr to database...
         // get saltStr from database...
 

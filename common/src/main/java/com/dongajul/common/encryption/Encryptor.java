@@ -5,12 +5,14 @@ import org.springframework.stereotype.Component;
 @Component
 public interface Encryptor {
 
+    int getSaltLength();
+
     String encrypt(String plainText, byte[] salt);
 
     boolean isMatch(String plainText, String encryptedText, byte[] salt);
 
-    default byte[] generateSalt16Byte() {
-        byte[] salt = new byte[16];
+    default byte[] generateSaltByte() {
+        byte[] salt = new byte[getSaltLength()];
         for (int i = 0; i < 16; i++) {
             salt[i] = (byte) (Math.random() * 256);
         }
