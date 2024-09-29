@@ -8,3 +8,6 @@ file("${rootDir}").eachDir {
         include(it.name)
     }
 }
+
+include('router:discovery')
+include('router:gateway')

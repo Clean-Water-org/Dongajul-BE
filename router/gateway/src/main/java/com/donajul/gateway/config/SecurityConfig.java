@@ -21,8 +21,9 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
         return http
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .addFilterBefore(new JwtAuthenticationFilter(tokenProvider), SecurityWebFiltersOrder.AUTHENTICATION)
-                .authorizeExchange(exchange -> exchange.pathMatchers("/post/list")
+                .authorizeExchange(exchange -> exchange.pathMatchers("/api/public/**")
                 .permitAll()
                 .anyExchange()
                 .authenticated()

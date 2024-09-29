@@ -17,6 +17,38 @@ spring:
           uri: lb://sample-service #요청이 라우팅되는 경로 URI 프로토콜(lb://)의 경로를 지정하면 기본적으로 Eureka Server에서 호스트에 해당하는 서비스를 찾고 로드밸런싱을 수행합니다.
           predicates: #해당 라우팅을 진행할 URI 조건으로, Gateway로 들어오는 요청 URI를 지정
             - Path=/api/sample/**
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 100
+        order_updates: true
+        connection:
+          pool_size: 10
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    defer-datasource-initialization: true
+    open-in-view: false
+  sql:
+    init:
+      mode: never
+      data-locations:
+        - classpath:data/ddl.sql
+        - classpath:data/dml.sql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dongajul_user
+    username: dongajul_user
+    password: dongajul
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+
 eureka:
   instance:
     prefer-ip-address: true
