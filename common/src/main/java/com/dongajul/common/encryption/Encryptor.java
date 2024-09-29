@@ -2,7 +2,6 @@ package com.dongajul.common.encryption;
 
 import org.springframework.stereotype.Component;
 
-@Component
 public interface Encryptor {
 
     int getSaltLength();

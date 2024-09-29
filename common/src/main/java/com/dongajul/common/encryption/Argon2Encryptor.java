@@ -2,10 +2,12 @@ package com.dongajul.common.encryption;
 
 import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
 import org.bouncycastle.crypto.params.Argon2Parameters;
+import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
+@Component
 public class Argon2Encryptor implements Encryptor{
 
     private final int ITERATIONS = 2; // 반복 횟수
