@@ -1,4 +1,4 @@
-package com.donajul.gateway.security.token;
+package com.donajul.gateway.token;
 
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

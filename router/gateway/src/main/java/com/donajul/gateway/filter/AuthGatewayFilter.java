@@ -1,15 +1,12 @@
 package com.donajul.gateway.filter;
 
-import com.donajul.gateway.security.token.TokenProvider;
+import com.donajul.gateway.token.TokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.apache.http.HttpHeaders;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Component

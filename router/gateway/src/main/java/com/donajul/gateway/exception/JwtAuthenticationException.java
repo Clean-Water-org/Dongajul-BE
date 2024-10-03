@@ -1,4 +1,4 @@
-package com.donajul.gateway.security.token;
+package com.donajul.gateway.exception;
 
 
 public class JwtAuthenticationException  {
