@@ -22,7 +22,7 @@ public class AuthTokenIssuerFilter extends AbstractGatewayFilterFactory<AuthToke
             return chain.filter(exchange) // post-processing
                     .then(Mono.fromRunnable(() -> {
                         boolean isAuthorized = exchange.getResponse().getStatusCode() != null
-                                && exchange.getResponse().getStatusCode().equals(HttpStatus.UNAUTHORIZED); // todo.
+                                && exchange.getResponse().getStatusCode().is2xxSuccessful(); // todo.
 
                         if(isAuthorized) {
                             String token = tokenProvider.createToken();

@@ -67,4 +67,4 @@ management:
       exposure:
         include: "*"
 
-token-issue-uri: /api/**/login
+token-issue-uri: /**/login

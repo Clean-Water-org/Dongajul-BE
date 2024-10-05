@@ -10,20 +10,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GatewayConfig {
 
-    private final String tokenIssueUri;
+    private final String tokenIssueUri = "/**/login";
     private final AuthTokenIssuerFilter authTokenIssuerFilter;
 
-    public GatewayConfig(@Value("${token-issue-uri") String tokenIssuerUri, AuthTokenIssuerFilter authTokenIssuerFilter) {
-        this.tokenIssueUri = tokenIssuerUri;
+    public GatewayConfig(AuthTokenIssuerFilter authTokenIssuerFilter) {
         this.authTokenIssuerFilter = authTokenIssuerFilter;
     }
 
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route(r -> r.path(tokenIssueUri)
+                .route(r -> r.path("/api/sample/login")
                         .filters(f -> f.filter(authTokenIssuerFilter.apply(new AuthTokenIssuerFilter.Config())))
-                        .uri("http://localhost:8080")) // ?
+                        .uri("lb://sample-service")) // 서비스 이름 지정
                 .build();
     }
 }
