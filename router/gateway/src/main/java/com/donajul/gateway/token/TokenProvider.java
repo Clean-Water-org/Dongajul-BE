@@ -1,59 +1,52 @@
 package com.donajul.gateway.token;
 
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.InitializingBean;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 
-/**
- * Login -> UserService -> DB -> 토큰 발행 ->
- * 다른 요청 -> 토큰 검증 -> 토큰이 유효하면 요청 처리
- */
 @Component
-public class TokenProvider  implements InitializingBean {
+public class TokenProvider {
 
-    // private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
     private static final String AUTHORITIES_KEY = "auth";
-    private final String secret;
-    private final long tokenValidityInMilliseconds;
-    private SecretKey key;
 
-    public TokenProvider(
-            @Value("${spring.jwt.secret}") String secret,
-            @Value("${spring.jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
-        this.secret = secret;
+    private final long tokenValidityInMilliseconds;
+    private final SecretKey secretKey;
+
+    public TokenProvider(@Value("${spring.jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
+        this.secretKey = Jwts.SIG.HS512.key().build();
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
     }
 
-
-    // 빈이 생성되고 주입을 받은 후에 secret값을 Base64 Decode해서 key 변수에 할당하기 위해
-    @Override
-    public void afterPropertiesSet() {
-        byte[] keyBytes = Decoders.BASE64.decode(secret);
-        this.key = Keys.hmacShaKeyFor(keyBytes);
-    }
-
     public String createToken() {
-
-        // 토큰의 expire 시간을 설정
         long now = (new Date()).getTime();
-        Date validity = new Date(now + this.tokenValidityInMilliseconds);
+        Date validity = new Date(now + tokenValidityInMilliseconds);
 
+        //        String token =  Jwts.builder()
+//                .subject("Joe")
+//                .signWith(secretKey1) // set Expire Time 해당 옵션 안넣으면 expire안함
+//                .compact();
         return Jwts.builder()
-                .claim(AUTHORITIES_KEY, "헤헤") // 정보 저장
-                .signWith(key, SignatureAlgorithm.HS512) // 사용할 암호화 알고리즘과 , signature 에 들어갈 secret값 세팅
-                .setExpiration(validity) // set Expire Time 해당 옵션 안넣으면 expire안함
+                // .setSubject("Joe")
+                .signWith(secretKey)
+                .claim(AUTHORITIES_KEY, "헤헤")
+                .expiration(validity)
                 .compact();
     }
 
-    // 클레임이 뭐임?... 토큰에 담긴 정보들을 클레임이라고 함
+    public Jws<Claims> readingToken(String token) {
+        try {
+            Jws<Claims> claimsJws = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
+            System.out.println(claimsJws.toString());
+            return claimsJws;
+        } catch (JwtException | IllegalArgumentException e) {
+            throw e;
+        }
+    }
+
+
     // 토큰으로 클레임을 만들고 이를 이용해 유저 객체를 만들어서 최종적으로 authentication 객체를 리턴
 //    public Authentication getAuthentication(String token) {
 //        Claims claims = Jwts
@@ -74,14 +67,26 @@ public class TokenProvider  implements InitializingBean {
 //        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
 //    }
 
-    // 토큰의 유효성 검증을 수행
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
-            return true;
-        } catch (JwtException | IllegalArgumentException e) {
-            throw e;
-        }
-    }
+
+
+//    public static void main(String[] args) {
+//        long now = (new Date()).getTime();
+//        Date validity = new Date(now + 1000000);
+//        String secret = "a2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbQ==";
+//
+//        SecretKey secretKey1 = Jwts.SIG.HS512.key().build();
+//
+//        String token =  Jwts.builder()
+//                .subject("Joe")
+//                .signWith(secretKey1) // set Expire Time 해당 옵션 안넣으면 expire안함
+//                .compact();
+//        System.out.println(token);
+//
+//        try {
+//            Jwts.parser().verifyWith(secretKey1).build().parseSignedClaims(token);
+//        } catch (JwtException | IllegalArgumentException e) {
+//            throw e;
+//        }
+//    }
 
 }

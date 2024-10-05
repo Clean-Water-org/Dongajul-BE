@@ -1,6 +1,13 @@
 spring:
   application:
     name: "sample-service"
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dongajul_user
+    username: dongajul_user
+    password: dongajul
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
 eureka:
   instance:
     prefer-ip-address: true
