@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import static com.donajul.gateway.filter.HeaderNames.*;
+
 @RequiredArgsConstructor
 @Component
 public class AuthTokenIssuerFilter extends AbstractGatewayFilterFactory<AuthTokenIssuerFilter.Config> {
-
-    private final String TOKEN_NAME = "token";
 
     private final TokenProvider tokenProvider;
 
@@ -25,9 +25,9 @@ public class AuthTokenIssuerFilter extends AbstractGatewayFilterFactory<AuthToke
                                 && exchange.getResponse().getStatusCode().is2xxSuccessful(); // todo.
 
                         if(isAuthorized) {
-                            String token = tokenProvider.createToken();
-                            System.out.println("token: " + token);
-                            exchange.getResponse().getHeaders().add(TOKEN_NAME, token);
+                            exchange.getResponse().getHeaders().add(TOKEN.getValue(), tokenProvider.createToken());
+                            exchange.getResponse().getHeaders().add(REFRESH_TOKEN.getValue(), tokenProvider.createRefreshToken());
+                            exchange.getResponse().getHeaders().add(PUBLIC_KEY.getValue(), tokenProvider.getPublicKey());
 
                         } else {
                             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);

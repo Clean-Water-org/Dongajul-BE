@@ -10,34 +10,33 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import static com.donajul.gateway.filter.HeaderNames.*;
+
 import java.util.List;
 
 @RequiredArgsConstructor
 @Component
 public class AuthGatewayFilter extends AbstractGatewayFilterFactory<AuthGatewayFilter.Config> {
 
-    private static final String EMPTY_STR = "";
-
-    private static final String COLON_STR = ":";
-
-    private static final String BASIC_STR = "Basic ";
-
     private final TokenProvider tokenProvider;
-
-    private final String TOKEN_HEADER_NAME = "authorization";
-    private final String PUBLIC_KEY_HEADER_NAME = "public-key";
 
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> { // pre-processing
-            List<String> tokens = exchange.getRequest().getHeaders().get(TOKEN_HEADER_NAME);
+            List<String> tokens = exchange.getRequest().getHeaders().get(TOKEN.getValue());
+            List<String> refreshTokens = exchange.getRequest().getHeaders().get(REFRESH_TOKEN.getValue());
 
             if (CollectionUtils.isEmpty(tokens)) {
                 throw new IllegalArgumentException("Token is not valid");
             }
 
+            if (CollectionUtils.isEmpty(refreshTokens)) {
+                throw new IllegalArgumentException("Refresh Token is not valid");
+            }
+
             try {
-                Jws<Claims> claimsJws = tokenProvider.readingToken(tokens.get(0));
+                String token = tokenProvider.readingToken(tokens.get(0), refreshTokens.get(0));
+                exchange.getResponse().getHeaders().add(TOKEN.getValue(), token);
                 // exchange.getResponse().getHeaders().set("user", claimsJws.getBody().getSubject());
                 return chain.filter(exchange);
 

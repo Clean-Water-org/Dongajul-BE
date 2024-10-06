@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.KeyPair;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Date;
 
 @Component
@@ -31,11 +32,55 @@ public class TokenProvider {
         return Jwts.builder()
                 .signWith(keyPair.getPrivate())
                 .claim(AUTHORITIES_KEY, "헤헤")
+                .claim(AUTHORITIES_KEY + "2", "헤헤")
+                .issuedAt(new Date(now))
+                // .expiration(validity)
+
+                .expiration(new Date(now))
+                .compact();
+    }
+
+    public String createRefreshToken() {
+
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(Calendar.DATE, 14);
+        Date expirationDate = calendar.getTime();
+
+        return Jwts.builder()
+                .signWith(keyPair.getPrivate())
+                .issuedAt(new Date())
+                // .expiration(validity)
+                .expiration(expirationDate)
+                .compact();
+    }
+
+    public String recreateToken(Claims claims) {
+        long now = (new Date()).getTime();
+        Date validity = new Date(now + tokenValidityInMilliseconds);
+
+        return Jwts.builder()
+                .signWith(keyPair.getPrivate())
+                .claims(claims)
                 .expiration(validity)
                 .compact();
     }
 
-    public Jws<Claims> readingToken(String token) {
+    public boolean validateRefreshToken(String refreshToken) {
+        try {
+            Jwts.parser()
+                    .verifyWith(keyPair.getPublic())
+                    .build()
+                    .parseSignedClaims(refreshToken);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            throw e;
+        }
+    }
+
+    // 뭘 return할지 고민..
+    public String readingToken(String token, String refreshToken) {
 
         try {
             Jws<Claims> claimsJws = Jwts.parser()
@@ -43,18 +88,28 @@ public class TokenProvider {
                     .build()
                     .parseSignedClaims(token);
             System.out.println(claimsJws.toString());
-            return claimsJws;
+            return token;
+        } catch (ExpiredJwtException e) {
+            if(validateRefreshToken(refreshToken)) {
+                return recreateToken(e.getClaims());
+            }
 
+            throw e;
         } catch (JwtException | IllegalArgumentException e) {
             throw e;
         }
     }
 
 
+    public String getPublicKey() {
+        return Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
+    }
+
+
     // 토큰으로 클레임을 만들고 이를 이용해 유저 객체를 만들어서 최종적으로 authentication 객체를 리턴
 //    public Authentication getAuthentication(String token) {
 //        Claims claims = Jwts
-//                .parser()
+//                .parser()w
 //                .setSigningKey(key)
 //                .build()
 //                .parseClaimsJws(token)
