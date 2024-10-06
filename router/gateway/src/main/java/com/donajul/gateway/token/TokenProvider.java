@@ -1,10 +1,16 @@
 package com.donajul.gateway.token;
 
 import io.jsonwebtoken.*;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.SecretKey;
+import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Date;
 
 @Component
@@ -13,10 +19,11 @@ public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
 
     private final long tokenValidityInMilliseconds;
-    private final SecretKey secretKey;
+    private final KeyPair keyPair;
+
 
     public TokenProvider(@Value("${spring.jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
-        this.secretKey = Jwts.SIG.HS512.key().build();
+        this.keyPair = Jwts.SIG.RS256.keyPair().build();
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
     }
 
@@ -24,23 +31,23 @@ public class TokenProvider {
         long now = (new Date()).getTime();
         Date validity = new Date(now + tokenValidityInMilliseconds);
 
-        //        String token =  Jwts.builder()
-//                .subject("Joe")
-//                .signWith(secretKey1) // set Expire Time 해당 옵션 안넣으면 expire안함
-//                .compact();
         return Jwts.builder()
-                // .setSubject("Joe")
-                .signWith(secretKey)
+                .signWith(keyPair.getPrivate(), Jwts.SIG.RS256)
                 .claim(AUTHORITIES_KEY, "헤헤")
                 .expiration(validity)
                 .compact();
     }
 
     public Jws<Claims> readingToken(String token) {
+
         try {
-            Jws<Claims> claimsJws = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
+            Jws<Claims> claimsJws = Jwts.parser()
+                    .verifyWith(keyPair.getPublic())
+                    .build()
+                    .parseSignedClaims(token);
             System.out.println(claimsJws.toString());
             return claimsJws;
+
         } catch (JwtException | IllegalArgumentException e) {
             throw e;
         }

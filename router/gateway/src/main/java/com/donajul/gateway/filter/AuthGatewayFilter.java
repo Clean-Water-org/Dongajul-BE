@@ -26,14 +26,14 @@ public class AuthGatewayFilter extends AbstractGatewayFilterFactory<AuthGatewayF
     private final TokenProvider tokenProvider;
 
     private final String TOKEN_HEADER_NAME = "authorization";
-
+    private final String PUBLIC_KEY_HEADER_NAME = "public-key";
 
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> { // pre-processing
             List<String> tokens = exchange.getRequest().getHeaders().get(TOKEN_HEADER_NAME);
 
-            if(CollectionUtils.isEmpty(tokens)) {
+            if (CollectionUtils.isEmpty(tokens)) {
                 throw new IllegalArgumentException("Token is not valid");
             }
 

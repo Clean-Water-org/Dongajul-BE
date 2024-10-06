@@ -22,7 +22,7 @@ public class GatewayConfig {
         return builder.routes()
                 .route(r -> r.path("/api/sample/login")
                         .filters(f -> f.filter(authTokenIssuerFilter.apply(new AuthTokenIssuerFilter.Config())))
-                        .uri("lb://sample-service")) // ¼­ºñ½º ÀÌ¸§ ÁöÁ¤
+                        .uri("lb://sample-service")) // ì„œë¹„ìŠ¤
                 .build();
     }
 }
