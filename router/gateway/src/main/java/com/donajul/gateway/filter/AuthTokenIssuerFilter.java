@@ -26,6 +26,7 @@ public class AuthTokenIssuerFilter extends AbstractGatewayFilterFactory<AuthToke
 
                         if(isAuthorized) {
                             String token = tokenProvider.createToken();
+                            System.out.println("token: " + token);
                             exchange.getResponse().getHeaders().add(TOKEN_NAME, token);
 
                         } else {

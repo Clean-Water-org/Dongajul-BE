@@ -1,16 +1,11 @@
 package com.donajul.gateway.token;
 
 import io.jsonwebtoken.*;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 import java.util.Date;
 
 @Component
@@ -31,8 +26,10 @@ public class TokenProvider {
         long now = (new Date()).getTime();
         Date validity = new Date(now + tokenValidityInMilliseconds);
 
+        System.out.println("publicKey " + Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded()));
+
         return Jwts.builder()
-                .signWith(keyPair.getPrivate(), Jwts.SIG.RS256)
+                .signWith(keyPair.getPrivate())
                 .claim(AUTHORITIES_KEY, "헤헤")
                 .expiration(validity)
                 .compact();
