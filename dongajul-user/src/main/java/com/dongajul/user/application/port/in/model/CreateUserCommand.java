@@ -13,23 +13,6 @@ public record CreateUserCommand(    //입력 유효성 검증
                                     @NotNull boolean isSleeper,
                                     @NotNull boolean isDeleted
 ) {
-    public CreateUserCommand(
-            String userName,
-            boolean isAuthenticatedPhone,
-            String email,
-            String password,
-            String phone,
-            boolean isSleeper,
-            boolean isDeleted
-    ) {
-        this.userName = userName;
-        this.isAuthenticatedPhone = isAuthenticatedPhone;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.isSleeper = isSleeper;
-        this.isDeleted = isDeleted;
-    }
 }
 
 

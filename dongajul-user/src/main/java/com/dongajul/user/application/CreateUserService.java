@@ -1,6 +1,7 @@
 package com.dongajul.user.application;
 
 import com.dongajul.common.UseCase;
+import com.dongajul.common.encryption.Argon2Encryptor;
 import com.dongajul.user.application.port.in.CreateUserUseCase;
 import com.dongajul.user.application.port.in.model.CreateUserCommand;
 import com.dongajul.user.application.port.out.CreateUserPort;
@@ -24,10 +25,18 @@ public class CreateUserService implements CreateUserUseCase {
             return false;
         }
 
+        //비밀번호 암호화
+        Argon2Encryptor argon2Encryptor = new Argon2Encryptor();
+
+        //TODO 회원 테이블에 salt 컬럼 추가 필요?
+        String saltStr = argon2Encryptor.encodeBase64(argon2Encryptor.generateSaltByte());
+        byte[] salt = argon2Encryptor.decodeBase64(saltStr);
+        String encryptedPassword = argon2Encryptor.encrypt(command.password(), salt);
+
         User user = User.builder()
                          .email(command.email())
                          .userName(command.userName())
-                         .password(command.password())  //TODO 비밀번호 암호화 필요
+                         .password(encryptedPassword)
                          .phone(command.phone())
                          .isAuthenticatedPhone(true)
                          .build();
